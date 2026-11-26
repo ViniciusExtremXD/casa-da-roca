@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Casa da Roça | Buffet caipira à vontade e rodízio de pizzas na Zona Sul de SP</title>
+    <meta
+      name="description"
+      content="Restaurante Casa da Roça, no Socorro: buffet de comida caipira à vontade, carnes grelhadas, sobremesas e rodízio de pizzas no jantar, a partir de R$ 44,90. Todos os dias, com estacionamento grátis."
+    />
+    <!-- PRÉVIA: enquanto o site não estiver no domínio da casa, fica fora do Google. No go-live, trocar por "index, follow, max-image-preview:large". -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#1A0404" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" type="image/png" sizes="192x192" href="%BASE_URL%favicon.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="%BASE_URL%favicon-48.png" />
+    <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
+    <link rel="preload" as="image" href="%BASE_URL%images/buffet-farofa.webp" />
+
+    <!-- SEO local -->
+    <meta name="geo.region" content="BR-SP" />
+    <meta name="geo.placename" content="São Paulo" />
+    <meta name="geo.position" content="-23.6660643;-46.7135449" />
+    <meta name="ICBM" content="-23.6660643, -46.7135449" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Casa da Roça" />
+    <meta property="og:title" content="Casa da Roça — comida de roça à vontade na Zona Sul" />
+    <meta property="og:description" content="Buffet caipira, carnes grelhadas, sobremesas e rodízio de pizzas no jantar. A partir de R$ 44,90, com estacionamento grátis, no Socorro." />
+    <meta property="og:image" content="%BASE_URL%og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Buffet da Casa da Roça com travessas de barro e o logo do restaurante" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Consent Mode v2 (LGPD): tudo negado até o visitante aceitar no aviso de cookies -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+        personalization_storage: "denied",
+        functionality_storage: "granted",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "url_passthrough", true);
+      gtag("set", "ads_data_redaction", true);
+      try {
+        if (localStorage.getItem("roca-consent") === "granted") {
+          gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted", analytics_storage: "granted", personalization_storage: "granted" });
+        }
+      } catch (e) {}
+    </script>
+
+    <!--
+      Google Tag Manager: só carrega quando existir um ID de verdade em VITE_GTM_ID (.env) e fora de
+      prévias (localhost, GitHub Pages). Para testar numa prévia, abra com ?gtm_debug=x ou ?track=1.
+    -->
+    <script>
+      (function (w, d, s, l, i) {
+        var preview = /(^localhost$|^127\.|\.github\.io$)/.test(w.location.hostname);
+        var debug = /[?&](gtm_debug|track)=/.test(w.location.search);
+        w[l] = w[l] || [];
+        if (!/^GTM-[A-Z0-9]+$/.test(i) || /^GTM-X+$/.test(i) || (preview && !debug)) return;
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s);
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "%VITE_GTM_ID%");
+    </script>
+
+    <!--structured-data-->
+    <noscript><style>.roca-preloader{display:none!important}</style></noscript>
+  </head>
+  <body class="antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
