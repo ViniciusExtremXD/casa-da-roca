@@ -1,0 +1,3 @@
+# PREVIA: site ainda fora do dominio da casa. No go-live, trocar por "Allow: /" e apontar o Sitemap.
+User-agent: *
+Disallow: /
