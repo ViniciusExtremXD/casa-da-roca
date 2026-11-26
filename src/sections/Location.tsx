@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Car, CaretDown, Clock, InstagramLogo, MapPin, NavigationArrow, Phone, WhatsappLogo } from "@phosphor-icons/react";
-import { COMPANY, FAQ, NAV_LINKS, WEEKDAYS, assetUrl, hoursFor, pushEvent, saoPauloNow } from "../data/site";
+import { COMPANY, FAQ, NAV_LINKS, assetUrl, hoursFor, pushEvent, saoPauloNow } from "../data/site";
 import { EASE_OUT, Reveal, SectionLabel, SplitWords } from "../components/motion";
 import { PhoneLink, PrimaryCta, WhatsAppLink } from "../components/cta";
 import { useOpenStatus } from "./Hero";
 
-/* Segunda primeiro, como a casa anuncia ("seg a dom"). */
-const ORDER = [1, 2, 3, 4, 5, 6, 0];
+/* Dois grupos de dias, como a casa anuncia. */
+const HOURS = [
+  { days: "Segunda a sexta", match: (d: number) => d >= 1 && d <= 5, h: hoursFor(1) },
+  { days: "Sábado e domingo", match: (d: number) => d === 0 || d === 6, h: hoursFor(6) },
+];
 
 export function Location() {
   const status = useOpenStatus();
@@ -37,15 +40,16 @@ export function Location() {
   }, []);
 
   return (
-    <section id="como-chegar" className="relative overflow-hidden bg-cream-50 py-24 sm:py-32">
+    <section id="como-chegar" className="relative overflow-hidden bg-cream-100 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="grid items-end gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <SectionLabel index="07">Como chegar</SectionLabel>
-            <h2 className="font-display mt-6 text-[clamp(2.4rem,5.4vw,4.8rem)] font-medium leading-[1.02] tracking-tight text-wine-800 text-balance">
+        <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-6 lg:grid-cols-12 lg:gap-8">
+          <div className="min-w-0 lg:col-span-8">
+            <SectionLabel index="02">Como chegar e reservar</SectionLabel>
+            <h2 className="font-display mt-6 text-[clamp(2.3rem,5vw,4.4rem)] font-medium leading-[1.03] tracking-tight text-wine-800 text-balance">
               <SplitWords text="Na Avenida Guarapiranga, com *vaga* na porta." accentClassName="italic text-ember-600" />
             </h2>
           </div>
+          <Reveal className="text-lg leading-relaxed text-wine-900/70 lg:col-span-4">No Socorro, Zona Sul de São Paulo. A casa abre todos os dias, do almoço ao jantar.</Reveal>
         </div>
 
         <div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-12">
@@ -92,7 +96,7 @@ export function Location() {
                   </span>
                 )}
               </div>
-              <table className="mt-6 w-full text-[13px] min-[380px]:text-[15px]">
+              <table className="mt-6 w-full text-[14px] min-[380px]:text-[15px]">
                 <thead className="text-left text-[11px] font-bold uppercase tracking-[0.16em] text-cream-100/50">
                   <tr>
                     <th className="pb-2 font-bold">Dia</th>
@@ -101,36 +105,43 @@ export function Location() {
                   </tr>
                 </thead>
                 <tbody>
-                  {ORDER.map((d) => {
-                    const h = hoursFor(d);
-                    const active = d === today;
+                  {HOURS.map((row) => {
+                    const active = today !== null && row.match(today);
                     return (
-                      <tr key={d} className={`border-t border-white/10 ${active ? "text-ember-300" : "text-cream-100/85"}`}>
-                        <td className="py-2.5 pr-2 font-semibold capitalize">
-                          {WEEKDAYS[d]}
-                          {active && <span className="ml-2 rounded-full bg-ember-400 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-wine-950">hoje</span>}
+                      <tr key={row.days} className={`border-t border-white/10 ${active ? "text-ember-300" : "text-cream-100/85"}`}>
+                        <td className="py-3.5 pr-2 font-semibold leading-snug">
+                          {row.days}
+                          {active && <span className="ml-2 inline-block rounded-full bg-ember-400 px-2 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wider text-wine-950">hoje</span>}
                         </td>
-                        <td className="tnum whitespace-nowrap py-2.5 pr-3">
-                          {h.almoco[0]}h às {h.almoco[1]}h
+                        <td className="tnum whitespace-nowrap py-3.5 pr-3">
+                          {row.h.almoco[0]}h às {row.h.almoco[1]}h
                         </td>
-                        <td className="tnum whitespace-nowrap py-2.5">
-                          {h.jantar[0]}h às {h.jantar[1]}h
+                        <td className="tnum whitespace-nowrap py-3.5">
+                          {row.h.jantar[0]}h às {row.h.jantar[1]}h
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
-              <p className="mt-4 text-[13px] leading-relaxed text-cream-100/50">Em feriados, o almoço segue o horário de fim de semana.</p>
+              <p className="mt-3 text-[13px] leading-relaxed text-cream-100/50">Em feriados, o almoço segue o horário de fim de semana.</p>
+              <p className="mt-5 flex items-center gap-3 border-t border-white/10 pt-5 text-[15px] leading-snug text-cream-100/85">
+                <Car weight="duotone" className="h-6 w-6 shrink-0 text-ember-400" />
+                Estacionamento grátis no pátio da frente da casa.
+              </p>
             </Reveal>
 
-            <Reveal delay={0.14} className="flex min-w-0 items-center gap-4 rounded-[32px] bg-ember-100 p-5 ring-1 ring-ember-300/50 sm:p-7">
-              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-wine-600 text-ember-200">
-                <Car weight="duotone" className="h-7 w-7" />
-              </span>
-              <div>
-                <p className="font-display text-xl font-medium text-wine-800">Estacionamento grátis</p>
-                <p className="mt-0.5 text-[15px] leading-snug text-wine-900/65">Pátio próprio na frente da casa, na beira da avenida.</p>
+            {/* Como reservar */}
+            <Reveal delay={0.14} className="min-w-0 rounded-[32px] bg-ember-100 p-5 ring-1 ring-ember-300/50 min-[380px]:p-7 sm:p-9">
+              <h3 className="font-display text-[1.7rem] font-medium leading-tight text-wine-800">Quer garantir a mesa?</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-wine-900/70">Mande o dia, o horário e quantas pessoas vêm. A equipe responde pelo WhatsApp com a disponibilidade.</p>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+                <PrimaryCta location="como_chegar" size="md" message="Olá! Vim pelo site da Casa da Roça e gostaria de reservar uma mesa.">
+                  Reservar pelo WhatsApp
+                </PrimaryCta>
+                <a href="#reservas" className="text-[15px] font-semibold text-wine-700 underline decoration-wine-600/30 underline-offset-4 transition-colors hover:decoration-wine-600">
+                  Montar o pedido por aqui
+                </a>
               </div>
             </Reveal>
           </div>
@@ -143,11 +154,11 @@ export function Location() {
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="duvidas" className="relative overflow-hidden bg-cream-100 py-24 sm:py-32">
+    <section id="duvidas" className="relative overflow-hidden bg-cream-50 py-24 sm:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-12 px-5 sm:px-8 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">
-            <SectionLabel index="08">Dúvidas</SectionLabel>
+            <SectionLabel index="09">Dúvidas</SectionLabel>
             <h2 className="font-display mt-6 text-[clamp(2.2rem,4.6vw,3.8rem)] font-medium leading-[1.04] tracking-tight text-wine-800 text-balance">
               <SplitWords text="Antes de vir, *vale* saber." accentClassName="italic text-ember-600" />
             </h2>

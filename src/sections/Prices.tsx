@@ -20,7 +20,7 @@ export function Prices() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <SectionLabel index="04">Valores</SectionLabel>
+            <SectionLabel index="06">Valores</SectionLabel>
             <h2 className="font-display mt-6 text-[clamp(2.4rem,5.4vw,4.8rem)] font-medium leading-[1.02] tracking-tight text-wine-800 text-balance">
               <SplitWords text="Preço de roça, fartura de *festa.*" accentClassName="italic text-ember-600" />
             </h2>

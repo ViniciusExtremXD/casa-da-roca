@@ -12,6 +12,8 @@ const SELECTOR = [
   ".animate-flutter",
   ".animate-spin-slow",
   ".animate-rise",
+  ".animate-twinkle",
+  ".animate-drift",
   ".reel-track",
 ].join(",");
 

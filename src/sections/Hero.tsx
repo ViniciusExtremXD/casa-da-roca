@@ -108,8 +108,8 @@ export function Hero({ ready }: { ready: boolean }) {
               Reservar pelo WhatsApp
             </PrimaryCta>
             <Magnetic strength={0.15}>
-              <a href="#valores" className="group inline-flex items-center gap-3 text-[15px] font-semibold text-cream-50">
-                <span className="border-b border-cream-50/40 pb-0.5 transition-colors group-hover:border-ember-400">Ver valores</span>
+              <a href="#como-chegar" className="group inline-flex items-center gap-3 text-[15px] font-semibold text-cream-50">
+                <span className="border-b border-cream-50/40 pb-0.5 transition-colors group-hover:border-ember-400">Como chegar</span>
                 <span className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition-colors group-hover:border-ember-400 group-hover:text-ember-400">
                   <ArrowDown weight="bold" className="h-4 w-4 transition-transform duration-500 group-hover:translate-y-0.5" />
                 </span>
@@ -119,10 +119,12 @@ export function Hero({ ready }: { ready: boolean }) {
 
           <motion.ul {...fade(1.15)} className="mt-12 grid max-w-xl grid-cols-3 gap-3 border-t border-white/10 pt-7 text-[13px] sm:gap-4 sm:text-sm">
             <li>
-              <p className="font-display flex items-baseline gap-1 whitespace-nowrap text-[1.6rem] font-medium text-cream-50 min-[380px]:text-3xl sm:gap-1.5 sm:text-4xl">
-                {COMPANY.googleRating.toLocaleString("pt-BR")} <Star weight="fill" className="h-4 w-4 translate-y-[-2px] text-ember-400 sm:h-5 sm:w-5" />
-              </p>
-              <p className="mt-1 leading-snug text-cream-100/60">{COMPANY.googleReviews} avaliações no Google</p>
+              <a href="#avaliacoes" className="group block">
+                <p className="font-display flex items-baseline gap-1 whitespace-nowrap text-[1.6rem] font-medium text-cream-50 min-[380px]:text-3xl sm:gap-1.5 sm:text-4xl">
+                  {COMPANY.googleRating.toLocaleString("pt-BR")} <Star weight="fill" className="h-4 w-4 translate-y-[-2px] text-ember-400 sm:h-5 sm:w-5" />
+                </p>
+                <p className="mt-1 leading-snug text-cream-100/60 underline decoration-cream-100/25 underline-offset-4 transition-colors group-hover:text-cream-50 group-hover:decoration-ember-400">{COMPANY.googleReviews} avaliações no Google</p>
+              </a>
             </li>
             <li>
               <p className="font-display flex items-baseline gap-1 whitespace-nowrap text-[1.6rem] font-medium text-cream-50 min-[380px]:text-3xl sm:gap-1.5 sm:text-4xl">

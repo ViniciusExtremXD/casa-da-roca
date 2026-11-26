@@ -81,7 +81,7 @@ export function Reservation() {
       <div aria-hidden className="bg-gingham pointer-events-none absolute inset-0 opacity-70" />
       <div className="relative mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-12">
         <div className="min-w-0 lg:col-span-5">
-          <SectionLabel index="06">Reservas e grupos</SectionLabel>
+          <SectionLabel index="08">Reservas e grupos</SectionLabel>
           <h2 className="font-display mt-6 text-[clamp(2.3rem,5vw,4.3rem)] font-medium leading-[1.03] tracking-tight text-wine-800 text-balance">
             <SplitWords text="Vem com a turma? *Guarde* a sua mesa." accentClassName="italic text-ember-600" />
           </h2>

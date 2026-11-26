@@ -6,7 +6,9 @@ import { pushEvent } from "./data/site";
 import { CookieNotice, FloatingContact, Nav, Preloader, ScrollProgress } from "./components/chrome";
 import { Hero } from "./sections/Hero";
 import { House, Strip } from "./sections/House";
-import { Buffet, DayNight } from "./sections/Buffet";
+import { Buffet } from "./sections/Buffet";
+import { DayNight } from "./sections/DayNight";
+import { Reviews } from "./sections/Reviews";
 import { Prices } from "./sections/Prices";
 import { Gallery } from "./sections/Gallery";
 import { Reservation } from "./sections/Reservation";
@@ -53,13 +55,14 @@ export default function App() {
       <main className="paper">
         <Hero ready={ready} />
         <Strip />
+        <Reviews />
+        <Location />
         <House />
         <Buffet />
         <DayNight />
         <Prices />
         <Gallery />
         <Reservation />
-        <Location />
         <Faq />
       </main>
       <Footer />

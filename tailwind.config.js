@@ -96,6 +96,14 @@ export default {
           "12%": { opacity: "0.9" },
           "100%": { transform: "translate3d(var(--dx, 20px), -72vh, 0) scale(0.3)", opacity: "0" },
         },
+        twinkle: {
+          "0%, 100%": { opacity: "0.25" },
+          "50%": { opacity: "1" },
+        },
+        drift: {
+          from: { transform: "translate3d(-18px, 0, 0)" },
+          to: { transform: "translate3d(18px, 0, 0)" },
+        },
         marquee: {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-50%)" },
@@ -114,6 +122,8 @@ export default {
         flutter: "flutter 9s ease-in-out infinite",
         "spin-slow": "spin-slow 24s linear infinite",
         rise: "rise 9s linear infinite",
+        twinkle: "twinkle 4.5s ease-in-out infinite",
+        drift: "drift 16s ease-in-out infinite alternate",
       },
     },
   },

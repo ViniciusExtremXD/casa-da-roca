@@ -4,7 +4,7 @@ Site do restaurante Casa da Roça (Av. Guarapiranga, 143, Socorro, São Paulo/SP
 
 **Estado:** prévia publicada em https://viniciusextremxd.github.io/casa-da-roca/ (repositório `ViniciusExtremXD/casa-da-roca`). Sem domínio e sem GTM. O `index.html` e o `robots.txt` estão com `noindex` de propósito.
 
-**Desenho (v2, 25/11/2026):** paleta tirada da casa (parede caiada, bordô do logo, ladrilho hidráulico, céu da fazenda), Gloock nos títulos e Schibsted Grotesk no texto, cantos retos, sem pílulas, sem pré-carregamento e sem rolagem suave. O movimento ficou em três lugares: abertura do topo, céu de dia e de noite no cardápio, e as aberturas das variedades.
+**Desenho (v3, 26/11/2026):** é o visual da primeira versão (bordô e laranja, Fraunces, animações) com quatro ajustes pedidos: avaliações do Google em carrossel e "como chegar e reservar" logo depois do topo, estações do buffet que abrem para mostrar as variedades, e almoço/jantar como a mesma fazenda de dia e de noite. A v2 (redesenho claro, sem pílulas) foi recusada pelo usuário e está só no histórico do git (3f6f223).
 
 ## Comandos
 
@@ -18,14 +18,17 @@ npm run deploy:gh    # publica a prévia no GitHub Pages (precisa do repositóri
 ## Estrutura
 
 ```
-src/data/site.ts             conteúdo: contatos, horários, valores, cardápio por período, avaliações, FAQ e o "aberto agora"
-src/sections/Hero.tsx        topo: título, WhatsApp, status de hoje, preço e nota do Google
-src/sections/Reviews.tsx     avaliações públicas do Google em carrossel
-src/sections/Location.tsx    onde fica (mapa, rota, horários) + pedido de reserva, dúvidas e rodapé com o ladrilho
-src/sections/Reservation.tsx formulário que monta a mensagem de reserva e abre o WhatsApp
-src/sections/DayNight.tsx    almoço e jantar como a fazenda de dia e de noite; cada item abre as variedades
-src/sections/House.tsx       a casa: texto, fotos do salão e vídeos de quem já foi
-src/components               chrome (cabeçalho, barra do celular, cookies), cta (links com medição), motion
+src/data/site.ts             conteúdo: contatos, horários, valores, estações do buffet (com variedades), avaliações, FAQ e o "aberto agora"
+src/sections/Hero.tsx        topo: status ao vivo, selo de preço girando, fotos em arco, brasas
+src/sections/Reviews.tsx     avaliações públicas do Google em carrossel (setas, arrasto, anda sozinho)
+src/sections/Location.tsx    como chegar e reservar (mapa, horários, estacionamento, atalho de reserva), dúvidas e rodapé
+src/sections/House.tsx       faixa do cardápio + "A casa"
+src/sections/Buffet.tsx      estações do buffet: clicar abre as variedades (painéis no computador, sanfona no celular)
+src/sections/DayNight.tsx    chave almoço/jantar com a fazenda de dia e de noite (começa no período atual)
+src/sections/Prices.tsx      tabela de valores com destaque automático para o dia de hoje
+src/sections/Gallery.tsx     fotos do salão passando + Instagram + vídeos de quem visitou
+src/sections/Reservation.tsx pedido de reserva que monta a mensagem e abre o WhatsApp
+src/components               motion (animações), chrome (menu, abertura, cookies), cta (links com medição)
 ```
 
 ## De onde veio o conteúdo (25/11/2026)

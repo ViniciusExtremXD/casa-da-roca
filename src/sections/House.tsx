@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import type { ReactNode } from "react";
-import { Armchair, CalendarCheck, Car, Grains, Plant, Star } from "@phosphor-icons/react";
+import { Armchair, CalendarCheck, Car, Grains, Plant } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
 import { COMPANY, HOUSE_FEATURES, assetUrl } from "../data/site";
-import { ClipReveal, Counter, EASE_OUT, ParallaxImage, Reveal, ScrollLitText, SectionLabel, SplitWords, VelocityMarquee } from "../components/motion";
+import { ClipReveal, EASE_OUT, ParallaxImage, Reveal, ScrollLitText, SectionLabel, SplitWords, VelocityMarquee } from "../components/motion";
 
 const ICONS: Icon[] = [Armchair, Plant, Car, CalendarCheck];
 
@@ -36,7 +35,7 @@ export function House() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="min-w-0 lg:col-span-6">
-            <SectionLabel index="01">A casa</SectionLabel>
+            <SectionLabel index="03">A casa</SectionLabel>
             <h2 className="font-display mt-6 text-[clamp(2.3rem,5vw,4.4rem)] font-medium leading-[1.03] tracking-tight text-wine-800 text-balance">
               <SplitWords text="A tradição da roça agora tem *endereço* no Socorro." accentClassName="italic text-ember-600" />
             </h2>
@@ -93,30 +92,7 @@ export function House() {
           })}
         </ul>
 
-        <dl className="mt-16 grid grid-cols-2 gap-y-10 border-t border-wine-600/10 pt-12 lg:grid-cols-4">
-          <Stat label="nota média no Google, em 36 avaliações">
-            <Counter to={COMPANY.googleRating} decimals={1} /> <Star weight="fill" className="h-7 w-7 text-ember-500" />
-          </Stat>
-          <Stat label="mil seguidores no Instagram">
-            <Counter to={COMPANY.instagramFollowers} decimals={1} />
-          </Stat>
-          <Stat label="dias por semana, almoço e jantar">
-            <Counter to={7} />
-          </Stat>
-          <Stat label="reais o buffet à vontade, a partir de">
-            <Counter to={44.9} decimals={2} />
-          </Stat>
-        </dl>
       </div>
     </section>
-  );
-}
-
-function Stat({ children, label }: { children: ReactNode; label: string }) {
-  return (
-    <div className="pr-4">
-      <dd className="font-display flex items-center gap-2 text-[clamp(2.4rem,5vw,3.8rem)] font-medium leading-none tracking-tight text-wine-700">{children}</dd>
-      <dt className="mt-3 max-w-[14rem] text-sm leading-snug text-wine-900/60">{label}</dt>
-    </div>
   );
 }

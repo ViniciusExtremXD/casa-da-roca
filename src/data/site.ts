@@ -20,7 +20,7 @@ export const COMPANY = {
   instagramUrl: "https://www.instagram.com/restaurante.casadaroca/",
   instagramFollowers: 31.1,
   googleRating: 4.4,
-  googleReviews: 36,
+  googleReviews: 38,
   googleUrl: "https://www.google.com/maps?cid=10882283889158635785",
   opened: "18/11/2026",
   address: {
@@ -86,13 +86,14 @@ export function trackLead(channel: LeadChannel, location: string, detail?: strin
 
 /* ───────────────────────── Navegação ───────────────────────── */
 
+/* Na ordem em que as seções aparecem na página. */
 export const NAV_LINKS = [
+  { href: "#como-chegar", label: "Como chegar" },
   { href: "#a-casa", label: "A casa" },
   { href: "#buffet", label: "O buffet" },
-  { href: "#pizzas", label: "Rodízio de pizzas" },
+  { href: "#pizzas", label: "Almoço e jantar" },
   { href: "#valores", label: "Valores" },
   { href: "#reservas", label: "Reservas" },
-  { href: "#como-chegar", label: "Como chegar" },
 ];
 
 /* ───────────────────────── Horários e valores ───────────────────────── */
@@ -161,11 +162,18 @@ export function openStatus(date: Date = new Date()): OpenStatus {
 
 /* ───────────────────────── O buffet ───────────────────────── */
 
+/*
+ * `items`: variedades vistas nos vídeos e fotos da primeira semana (18 a 25/11/2026). O buffet muda
+ * todo dia, por isso o site chama de "amostra". Trocar pela lista oficial quando a casa mandar.
+ */
 export interface Station {
   id: string;
   title: string;
+  /* Nome curto, para o painel fechado. */
+  short: string;
   when: string;
   desc: string;
+  items: string[];
   image: string;
   alt: string;
   position?: string;
@@ -175,8 +183,20 @@ export const STATIONS: Station[] = [
   {
     id: "pratos-quentes",
     title: "Pratos quentes",
+    short: "Pratos quentes",
     when: "Almoço e jantar",
     desc: "Comida caseira servida na panela de barro: gratinados, farofa, arroz bem temperado e assados saindo o tempo todo.",
+    items: [
+      "Farofa da casa",
+      "Arroz temperado com legumes",
+      "Feijão",
+      "Enroladinhos de presunto e queijo",
+      "Massas gratinadas",
+      "Batata assada",
+      "Bolinhas de queijo",
+      "Frango assado",
+      "Pão de alho",
+    ],
     image: "images/buffet-farofa.webp",
     alt: "Travessas de barro com farofa, arroz temperado e enrolados no buffet da Casa da Roça",
     position: "50% 70%",
@@ -184,8 +204,10 @@ export const STATIONS: Station[] = [
   {
     id: "saladas",
     title: "Saladas fresquinhas",
+    short: "Saladas",
     when: "Almoço e jantar",
     desc: "Uma ilha inteira de saladas montadas no dia, para abrir o apetite ou equilibrar o prato.",
+    items: ["Folhas verdes", "Vagem", "Salada de batata com tomate", "Legumes", "Frutas fatiadas", "Saladas montadas da casa"],
     image: "images/saladas.webp",
     alt: "Ilha de saladas com folhas, legumes e frutas no buffet",
     position: "50% 60%",
@@ -193,8 +215,10 @@ export const STATIONS: Station[] = [
   {
     id: "carnes",
     title: "Carnes grelhadas",
+    short: "Carnes grelhadas",
     when: "Só no almoço",
     desc: "Carne passada na chapa e cortada na hora, linguiça e assados. É a estrela do almoço.",
+    items: ["Carne na chapa, cortada na hora", "Carne assada", "Linguiça", "Frango"],
     image: "images/carne-chapa.webp",
     alt: "Carne grelhada sendo cortada na chapa",
     position: "50% 45%",
@@ -202,8 +226,17 @@ export const STATIONS: Station[] = [
   {
     id: "sobremesas",
     title: "Mesa de sobremesas",
+    short: "Sobremesas",
     when: "Já incluída",
     desc: "Tortas, bolos e docinhos para escolher à vontade. A sobremesa faz parte do buffet, sem pagar a mais.",
+    items: [
+      "Brigadeiros e trufas",
+      "Bolo de morango com chantili",
+      "Torta de chocolate",
+      "Torta de bolacha",
+      "Mousse de maracujá no copinho de chocolate",
+      "Copinhos de doce",
+    ],
     image: "images/doces-brigadeiro.webp",
     alt: "Mesa de sobremesas com docinhos, tortas e bolos",
     position: "50% 35%",
@@ -257,8 +290,64 @@ export const REELS = [
   { handle: "bendito.review", likes: "", title: "Almoçando no buffet à vontade", url: "https://www.instagram.com/reel/Df8K_WLOb7p/" },
 ];
 
-/* Temas mais citados nas avaliações do Google (a própria ficha agrupa assim). */
-export const PRAISED = ["Sobremesas", "Variedade do buffet", "Atendimento", "Ambiente para a família"];
+/*
+ * Trechos de avaliações públicas da ficha do Google (lidas em 25/11/2026), todas de 5 estrelas,
+ * com o nome abreviado e o texto como foi escrito, só cortado com "[…]". Antes do go-live, trocar
+ * por um widget oficial ou pedir autorização (ver README).
+ */
+export interface Review {
+  name: string;
+  guide?: boolean;
+  text: string;
+  when: string;
+}
+
+export const REVIEWS: Review[] = [
+  {
+    name: "Caroline C.",
+    text: "Amei o sabor da comida, a variedade de coisas do buffet, muita comida, muita salada e no buffet está incluso a sobremesa. Fomos bem atendidos, o ambiente é lindo, espaçoso, aconchegante e bem clean.",
+    when: "jantar de domingo, 22/11",
+  },
+  {
+    name: "Marcos D.",
+    guide: true,
+    text: "Muitas variedades, para todos os gostos, comidas saborosas, ambiente gostoso, queria comer mais, experimentar mais coisas mas a barriga já estava cheia terei que voltar kkk parabéns",
+    when: "novembro de 2026",
+  },
+  {
+    name: "Nicolle S.",
+    text: "Experiência excelente! A comida estava muito boa, o espaço é agradável, aconchegante e muito bem organizado. O atendimento também foi impecável, com muita atenção e cordialidade.",
+    when: "novembro de 2026",
+  },
+  {
+    name: "Antonio D.",
+    guide: true,
+    text: "Diversas opções de saladas e uma mesa farta com bastante sobremesas. […] Sem contar no rodízio de pizza que também estava um delícia com muitas opções entre pizzas doces e salgadas. Super recomendo pelo excelente custo benefício nota 1000.",
+    when: "jantar de inauguração, 18/11",
+  },
+  {
+    name: "Marcia O.",
+    guide: true,
+    text: "Atendimento incrível, ambiente agradável, comida maravilhosa. Perfeito para reunir família, amigos.",
+    when: "novembro de 2026",
+  },
+  {
+    name: "LuckS",
+    text: "Pela quantidade de comidas diferentes que servem e por ser self-service coma a vontade achei bem barato. A mesa de sobremesas era bem farta.",
+    when: "novembro de 2026",
+  },
+  {
+    name: "Gabriella C.",
+    text: "Atendimento perfeito, atendentes muitos simpáticos e atenciosos, comidas maravilhosas e sempre servindo até que esteja satisfeito. Excelente restaurante.",
+    when: "novembro de 2026",
+  },
+  {
+    name: "Gabriela O.",
+    guide: true,
+    text: "Fomos em família, na noite de sábado, funcionários educados, variedade de comidas.",
+    when: "novembro de 2026",
+  },
+];
 
 /* ───────────────────────── Dúvidas ───────────────────────── */
 
