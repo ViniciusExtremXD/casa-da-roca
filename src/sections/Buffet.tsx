@@ -52,7 +52,7 @@ export function Buffet() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <SectionLabel index="04" tone="dark">O buffet</SectionLabel>
+            <SectionLabel tone="dark">O buffet</SectionLabel>
             <h2 className="font-display mt-6 text-[clamp(2.4rem,5.4vw,4.8rem)] font-medium leading-[1.02] tracking-tight text-balance">
               <SplitWords text="Monte o prato, repita, e *repita* de novo." accentClassName="italic text-ember-400" />
             </h2>
@@ -107,8 +107,7 @@ export function Buffet() {
                   aria-hidden={!on}
                   className={`pointer-events-none absolute bottom-0 left-0 w-[436px] p-7 transition-[opacity,transform] duration-500 xl:w-[580px] xl:p-9 ${on ? "translate-y-0 opacity-100 delay-300" : "translate-y-4 opacity-0"}`}
                 >
-                  <p className="font-display text-sm italic text-ember-300">0{i + 1}</p>
-                  <h3 className="font-display mt-1 text-[2.2rem] font-medium leading-tight">{s.title}</h3>
+                  <h3 className="font-display text-[2.2rem] font-medium leading-tight">{s.title}</h3>
                   <p className="mt-2.5 max-w-md text-[15px] leading-relaxed text-cream-100/75">{s.desc}</p>
                   <Varieties station={s} className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2.5 text-[15px] text-cream-50" />
                 </div>

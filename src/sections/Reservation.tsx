@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { CalendarBlank, ChatCircleDots, Minus, Moon, Plus, Sun, UsersThree, WhatsappLogo } from "@phosphor-icons/react";
+import { Minus, Moon, Plus, Sun, WhatsappLogo } from "@phosphor-icons/react";
 import { PERIOD_LABEL, buildWhatsAppUrl, hoursFor, trackLead, type Period } from "../data/site";
 import { EASE_OUT, Reveal, SectionLabel, SplitWords } from "../components/motion";
 
 const OCCASIONS = ["Almoço ou jantar em família", "Aniversário", "Confraternização", "Outro"];
 
 const STEPS = [
-  { icon: CalendarBlank, title: "Escolha o dia e o período", desc: "Almoço ou jantar, qualquer dia da semana." },
-  { icon: UsersThree, title: "Diga quantas pessoas vêm", desc: "De uma mesa para dois a um grupo grande." },
-  { icon: ChatCircleDots, title: "A equipe confirma no WhatsApp", desc: "O pedido chega pronto na conversa e a casa responde com a disponibilidade." },
+  { title: "Escolha o dia e o período", desc: "Almoço ou jantar, qualquer dia da semana." },
+  { title: "Diga quantas pessoas vêm", desc: "De uma mesa para dois a um grupo grande." },
+  { title: "A equipe confirma no WhatsApp", desc: "O pedido chega pronto na conversa e a casa responde com a disponibilidade." },
 ];
 
 function isoToday() {
@@ -78,10 +78,9 @@ export function Reservation() {
 
   return (
     <section id="reservas" className="relative overflow-hidden bg-cream-100 py-24 sm:py-32">
-      <div aria-hidden className="bg-gingham pointer-events-none absolute inset-0 opacity-70" />
       <div className="relative mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-12">
         <div className="min-w-0 lg:col-span-5">
-          <SectionLabel index="08">Reservas e grupos</SectionLabel>
+          <SectionLabel>Reservas e grupos</SectionLabel>
           <h2 className="font-display mt-6 text-[clamp(2.3rem,5vw,4.3rem)] font-medium leading-[1.03] tracking-tight text-wine-800 text-balance">
             <SplitWords text="Vem com a turma? *Guarde* a sua mesa." accentClassName="italic text-ember-600" />
           </h2>
@@ -97,10 +96,7 @@ export function Reservation() {
                 viewport={{ once: true, margin: "0px 0px -10% 0px" }}
                 transition={{ duration: 0.8, ease: EASE_OUT, delay: i * 0.1 }}
               >
-                <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full bg-wine-600 text-ember-200 shadow-wine">
-                  <s.icon weight="duotone" className="h-6 w-6" />
-                  <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-ember-400 text-[11px] font-bold text-wine-950">{i + 1}</span>
-                </span>
+                <span className="font-display w-9 shrink-0 text-[2.2rem] font-medium leading-none text-ember-500">{i + 1}</span>
                 <span>
                   <span className="font-display block text-xl font-medium text-wine-800">{s.title}</span>
                   <span className="mt-0.5 block text-[15px] leading-relaxed text-wine-900/65">{s.desc}</span>

@@ -4,7 +4,7 @@ Site do restaurante Casa da Roça (Av. Guarapiranga, 143, Socorro, São Paulo/SP
 
 **Estado:** prévia publicada em https://viniciusextremxd.github.io/casa-da-roca/ (repositório `ViniciusExtremXD/casa-da-roca`). Sem domínio e sem GTM. O `index.html` e o `robots.txt` estão com `noindex` de propósito.
 
-**Desenho (v3, 26/11/2026):** é o visual da primeira versão (bordô e laranja, Fraunces, animações) com quatro ajustes pedidos: avaliações do Google em carrossel e "como chegar e reservar" logo depois do topo, estações do buffet que abrem para mostrar as variedades, e almoço/jantar como a mesma fazenda de dia e de noite. A v2 (redesenho claro, sem pílulas) foi recusada pelo usuário e está só no histórico do git (3f6f223).
+**Desenho (v4, 26/11/2026):** v3 com fundos mais brancos, sem ícones em quadradinho nem cartões de destaque, avaliações e mapa lado a lado, e a fazenda embaixo do almoço/jantar com bichos animados. **Antes (v3):** é o visual da primeira versão (bordô e laranja, Fraunces, animações) com quatro ajustes pedidos: avaliações do Google em carrossel e "como chegar e reservar" logo depois do topo, estações do buffet que abrem para mostrar as variedades, e almoço/jantar como a mesma fazenda de dia e de noite. A v2 (redesenho claro, sem pílulas) foi recusada pelo usuário e está só no histórico do git (3f6f223).
 
 ## Comandos
 
@@ -20,11 +20,11 @@ npm run deploy:gh    # publica a prévia no GitHub Pages (precisa do repositóri
 ```
 src/data/site.ts             conteúdo: contatos, horários, valores, estações do buffet (com variedades), avaliações, FAQ e o "aberto agora"
 src/sections/Hero.tsx        topo: status ao vivo, selo de preço girando, fotos em arco, brasas
-src/sections/Reviews.tsx     avaliações públicas do Google em carrossel (setas, arrasto, anda sozinho)
-src/sections/Location.tsx    como chegar e reservar (mapa, horários, estacionamento, atalho de reserva), dúvidas e rodapé
+src/sections/Visit.tsx       avaliações do Google em carrossel (com foto da casa) ao lado do mapa, horários e atalho de reserva
+src/sections/Location.tsx    dúvidas e rodapé
 src/sections/House.tsx       faixa do cardápio + "A casa"
 src/sections/Buffet.tsx      estações do buffet: clicar abre as variedades (painéis no computador, sanfona no celular)
-src/sections/DayNight.tsx    chave almoço/jantar com a fazenda de dia e de noite (começa no período atual)
+src/sections/DayNight.tsx    chave almoço/jantar; a fazenda fica embaixo como cenário (vacas e ovelhas de dia, corujas e lobos-guarás de noite)
 src/sections/Prices.tsx      tabela de valores com destaque automático para o dia de hoje
 src/sections/Gallery.tsx     fotos do salão passando + Instagram + vídeos de quem visitou
 src/sections/Reservation.tsx pedido de reserva que monta a mensagem e abre o WhatsApp

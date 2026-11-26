@@ -1,155 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Car, CaretDown, Clock, InstagramLogo, MapPin, NavigationArrow, Phone, WhatsappLogo } from "@phosphor-icons/react";
-import { COMPANY, FAQ, NAV_LINKS, assetUrl, hoursFor, pushEvent, saoPauloNow } from "../data/site";
+import { CaretDown, InstagramLogo, Phone, WhatsappLogo } from "@phosphor-icons/react";
+import { COMPANY, FAQ, NAV_LINKS, assetUrl, pushEvent } from "../data/site";
 import { EASE_OUT, Reveal, SectionLabel, SplitWords } from "../components/motion";
 import { PhoneLink, PrimaryCta, WhatsAppLink } from "../components/cta";
-import { useOpenStatus } from "./Hero";
-
-/* Dois grupos de dias, como a casa anuncia. */
-const HOURS = [
-  { days: "Segunda a sexta", match: (d: number) => d >= 1 && d <= 5, h: hoursFor(1) },
-  { days: "Sábado e domingo", match: (d: number) => d === 0 || d === 6, h: hoursFor(6) },
-];
-
-export function Location() {
-  const status = useOpenStatus();
-  const [today, setToday] = useState<number | null>(null);
-  useEffect(() => setToday(saoPauloNow().dow), []);
-
-  /* O mapa só carrega quando a seção está chegando: o iframe do Google pesa. */
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [showMap, setShowMap] = useState(false);
-  useEffect(() => {
-    const el = mapRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      setShowMap(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setShowMap(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "700px 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <section id="como-chegar" className="relative overflow-hidden bg-cream-100 py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-6 lg:grid-cols-12 lg:gap-8">
-          <div className="min-w-0 lg:col-span-8">
-            <SectionLabel index="02">Como chegar e reservar</SectionLabel>
-            <h2 className="font-display mt-6 text-[clamp(2.3rem,5vw,4.4rem)] font-medium leading-[1.03] tracking-tight text-wine-800 text-balance">
-              <SplitWords text="Na Avenida Guarapiranga, com *vaga* na porta." accentClassName="italic text-ember-600" />
-            </h2>
-          </div>
-          <Reveal className="text-lg leading-relaxed text-wine-900/70 lg:col-span-4">No Socorro, Zona Sul de São Paulo. A casa abre todos os dias, do almoço ao jantar.</Reveal>
-        </div>
-
-        <div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-12">
-          {/* Mapa */}
-          <Reveal className="relative min-w-0 overflow-hidden rounded-[32px] bg-cream-200 shadow-card ring-1 ring-wine-600/10 lg:col-span-7">
-            <div ref={mapRef} className="relative h-[380px] w-full sm:h-[520px] lg:h-full lg:min-h-[560px]">
-              {showMap ? (
-                <iframe title="Mapa: Casa da Roça, Av. Guarapiranga, 143, Socorro, São Paulo" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="absolute inset-0 h-full w-full border-0 [filter:sepia(0.18)_saturate(1.05)]" allowFullScreen />
-              ) : (
-                <div className="bg-gingham absolute inset-0" />
-              )}
-            </div>
-            <div className="pointer-events-none absolute inset-x-3 bottom-3 flex flex-wrap items-center justify-between gap-3 rounded-[22px] bg-cream-50/95 p-4 shadow-float backdrop-blur-md sm:inset-x-5 sm:bottom-5 sm:p-5">
-              <div className="min-w-0">
-                <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-ember-700">
-                  <MapPin weight="fill" className="h-4 w-4" /> {COMPANY.address.region} de São Paulo
-                </p>
-                <p className="font-display mt-1 text-xl font-medium leading-tight text-wine-800 sm:text-2xl">{COMPANY.address.street}</p>
-                <p className="text-sm text-wine-900/65">
-                  {COMPANY.address.district} · {COMPANY.address.city} · CEP {COMPANY.address.cep}
-                </p>
-              </div>
-              <div className="pointer-events-auto flex gap-2">
-                <a href={COMPANY.mapsUrl} target="_blank" rel="noopener noreferrer" onClick={() => pushEvent("maps_click", { link_location: "mapa" })} className="inline-flex h-11 items-center gap-2 rounded-full bg-wine-600 px-5 text-sm font-semibold text-cream-50 transition-colors hover:bg-wine-800">
-                  <NavigationArrow weight="fill" className="h-4 w-4" /> Traçar rota
-                </a>
-                <a href={COMPANY.wazeUrl} target="_blank" rel="noopener noreferrer" onClick={() => pushEvent("maps_click", { link_location: "waze" })} className="inline-flex h-11 items-center rounded-full border border-wine-600/20 px-5 text-sm font-semibold text-wine-800 transition-colors hover:bg-wine-600/5">
-                  Waze
-                </a>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Horários */}
-          <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 lg:col-span-5">
-            <Reveal delay={0.08} className="rounded-[32px] bg-wine-900 p-5 text-cream-50 shadow-lift min-[380px]:p-7 sm:p-9">
-              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                <h3 className="font-display flex items-center gap-3 text-[1.7rem] font-medium">
-                  <Clock weight="duotone" className="h-7 w-7 text-ember-400" /> Horários
-                </h3>
-                {status && (
-                  <span className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] ${status.open ? "bg-ember-400 text-wine-950" : "bg-white/10 text-cream-100"}`}>
-                    <span className={`h-1.5 w-1.5 rounded-full ${status.open ? "bg-wine-950" : "bg-cream-100"}`} /> {status.open ? "Aberto agora" : "Fechado agora"}
-                  </span>
-                )}
-              </div>
-              <table className="mt-6 w-full text-[14px] min-[380px]:text-[15px]">
-                <thead className="text-left text-[11px] font-bold uppercase tracking-[0.16em] text-cream-100/50">
-                  <tr>
-                    <th className="pb-2 font-bold">Dia</th>
-                    <th className="pb-2 font-bold">Almoço</th>
-                    <th className="pb-2 font-bold">Jantar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {HOURS.map((row) => {
-                    const active = today !== null && row.match(today);
-                    return (
-                      <tr key={row.days} className={`border-t border-white/10 ${active ? "text-ember-300" : "text-cream-100/85"}`}>
-                        <td className="py-3.5 pr-2 font-semibold leading-snug">
-                          {row.days}
-                          {active && <span className="ml-2 inline-block rounded-full bg-ember-400 px-2 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wider text-wine-950">hoje</span>}
-                        </td>
-                        <td className="tnum whitespace-nowrap py-3.5 pr-3">
-                          {row.h.almoco[0]}h às {row.h.almoco[1]}h
-                        </td>
-                        <td className="tnum whitespace-nowrap py-3.5">
-                          {row.h.jantar[0]}h às {row.h.jantar[1]}h
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <p className="mt-3 text-[13px] leading-relaxed text-cream-100/50">Em feriados, o almoço segue o horário de fim de semana.</p>
-              <p className="mt-5 flex items-center gap-3 border-t border-white/10 pt-5 text-[15px] leading-snug text-cream-100/85">
-                <Car weight="duotone" className="h-6 w-6 shrink-0 text-ember-400" />
-                Estacionamento grátis no pátio da frente da casa.
-              </p>
-            </Reveal>
-
-            {/* Como reservar */}
-            <Reveal delay={0.14} className="min-w-0 rounded-[32px] bg-ember-100 p-5 ring-1 ring-ember-300/50 min-[380px]:p-7 sm:p-9">
-              <h3 className="font-display text-[1.7rem] font-medium leading-tight text-wine-800">Quer garantir a mesa?</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-wine-900/70">Mande o dia, o horário e quantas pessoas vêm. A equipe responde pelo WhatsApp com a disponibilidade.</p>
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <PrimaryCta location="como_chegar" size="md" message="Olá! Vim pelo site da Casa da Roça e gostaria de reservar uma mesa.">
-                  Reservar pelo WhatsApp
-                </PrimaryCta>
-                <a href="#reservas" className="text-[15px] font-semibold text-wine-700 underline decoration-wine-600/30 underline-offset-4 transition-colors hover:decoration-wine-600">
-                  Montar o pedido por aqui
-                </a>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
@@ -158,7 +12,7 @@ export function Faq() {
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-12 px-5 sm:px-8 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">
-            <SectionLabel index="09">Dúvidas</SectionLabel>
+            <SectionLabel>Dúvidas</SectionLabel>
             <h2 className="font-display mt-6 text-[clamp(2.2rem,4.6vw,3.8rem)] font-medium leading-[1.04] tracking-tight text-wine-800 text-balance">
               <SplitWords text="Antes de vir, *vale* saber." accentClassName="italic text-ember-600" />
             </h2>

@@ -14,6 +14,7 @@ const SELECTOR = [
   ".animate-rise",
   ".animate-twinkle",
   ".animate-drift",
+  "[data-scene]",
   ".reel-track",
 ].join(",");
 

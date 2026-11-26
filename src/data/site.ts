@@ -300,49 +300,77 @@ export interface Review {
   guide?: boolean;
   text: string;
   when: string;
+  /* Foto da própria casa ligada ao que a pessoa comenta (não é foto enviada por ela). */
+  photo: string;
+  photoAlt: string;
+  photoPosition?: string;
 }
 
 export const REVIEWS: Review[] = [
   {
     name: "Caroline C.",
+    photo: "images/saladas.webp",
+    photoAlt: "Ilha de saladas do buffet",
+    photoPosition: "50% 58%",
     text: "Amei o sabor da comida, a variedade de coisas do buffet, muita comida, muita salada e no buffet está incluso a sobremesa. Fomos bem atendidos, o ambiente é lindo, espaçoso, aconchegante e bem clean.",
     when: "jantar de domingo, 22/11",
   },
   {
     name: "Marcos D.",
+    photo: "images/buffet-massas.webp",
+    photoAlt: "Travessas de barro com massas gratinadas e salgados",
+    photoPosition: "50% 60%",
     guide: true,
     text: "Muitas variedades, para todos os gostos, comidas saborosas, ambiente gostoso, queria comer mais, experimentar mais coisas mas a barriga já estava cheia terei que voltar kkk parabéns",
     when: "novembro de 2026",
   },
   {
     name: "Nicolle S.",
+    photo: "images/salao-b.webp",
+    photoAlt: "Salão da Casa da Roça com vigas de madeira e flores",
+    photoPosition: "50% 55%",
     text: "Experiência excelente! A comida estava muito boa, o espaço é agradável, aconchegante e muito bem organizado. O atendimento também foi impecável, com muita atenção e cordialidade.",
     when: "novembro de 2026",
   },
   {
     name: "Antonio D.",
+    photo: "images/doces-bolos.webp",
+    photoAlt: "Bolos e doces da mesa de sobremesas",
+    photoPosition: "50% 45%",
     guide: true,
     text: "Diversas opções de saladas e uma mesa farta com bastante sobremesas. […] Sem contar no rodízio de pizza que também estava um delícia com muitas opções entre pizzas doces e salgadas. Super recomendo pelo excelente custo benefício nota 1000.",
     when: "jantar de inauguração, 18/11",
   },
   {
     name: "Marcia O.",
+    photo: "images/salao-cheio-a.webp",
+    photoAlt: "Salão cheio de famílias na semana de inauguração",
+    photoPosition: "50% 50%",
     guide: true,
     text: "Atendimento incrível, ambiente agradável, comida maravilhosa. Perfeito para reunir família, amigos.",
     when: "novembro de 2026",
   },
   {
     name: "LuckS",
+    photo: "images/pratos-quentes.webp",
+    photoAlt: "Buffet de pratos quentes em travessas de barro",
+    photoPosition: "50% 55%",
     text: "Pela quantidade de comidas diferentes que servem e por ser self-service coma a vontade achei bem barato. A mesa de sobremesas era bem farta.",
     when: "novembro de 2026",
   },
   {
     name: "Gabriella C.",
+    photo: "images/forno-pizza.webp",
+    photoAlt: "Funcionário servindo no balcão em frente ao forno de pizza",
+    photoPosition: "50% 40%",
     text: "Atendimento perfeito, atendentes muitos simpáticos e atenciosos, comidas maravilhosas e sempre servindo até que esteja satisfeito. Excelente restaurante.",
     when: "novembro de 2026",
   },
   {
     name: "Gabriela O.",
+    photo: "images/salao-cheio-b.webp",
+    photoAlt: "Famílias jantando no salão",
+    photoPosition: "50% 45%",
     guide: true,
     text: "Fomos em família, na noite de sábado, funcionários educados, variedade de comidas.",
     when: "novembro de 2026",

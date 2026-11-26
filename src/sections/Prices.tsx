@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Baby, CreditCard, Moon, Sun } from "@phosphor-icons/react";
+import { Moon, Sun } from "@phosphor-icons/react";
 import { PRICES, WEEKDAYS, brl, saoPauloNow, type Period } from "../data/site";
 import { EASE_OUT, Reveal, SectionLabel, SplitWords } from "../components/motion";
 import { PrimaryCta } from "../components/cta";
@@ -16,11 +16,10 @@ export function Prices() {
 
   return (
     <section id="valores" className="relative overflow-hidden bg-cream-50 py-24 sm:py-32">
-      <div aria-hidden className="bg-gingham mask-fade-b pointer-events-none absolute inset-x-0 top-0 h-[460px]" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <SectionLabel index="06">Valores</SectionLabel>
+            <SectionLabel>Valores</SectionLabel>
             <h2 className="font-display mt-6 text-[clamp(2.4rem,5.4vw,4.8rem)] font-medium leading-[1.02] tracking-tight text-wine-800 text-balance">
               <SplitWords text="Preço de roça, fartura de *festa.*" accentClassName="italic text-ember-600" />
             </h2>
@@ -38,12 +37,7 @@ export function Prices() {
         <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-12">
           <Reveal className="rounded-[30px] bg-white p-6 shadow-soft ring-1 ring-wine-600/[0.07] sm:p-9 lg:col-span-8">
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <h3 className="font-display flex items-center gap-3 text-[1.7rem] font-medium text-wine-800">
-                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-ember-100 text-wine-600">
-                  <Baby weight="duotone" className="h-6 w-6" />
-                </span>
-                Crianças de {PRICES.kids.range}
-              </h3>
+              <h3 className="font-display text-[1.7rem] font-medium text-wine-800">Crianças de {PRICES.kids.range}</h3>
               <p className="rounded-full bg-leaf/10 px-4 py-2 text-sm font-semibold text-leaf">{PRICES.kids.free}</p>
             </div>
             <dl className="mt-7 grid gap-x-10 gap-y-5 sm:grid-cols-2">
@@ -56,8 +50,7 @@ export function Prices() {
 
           <Reveal delay={0.08} className="flex flex-col justify-between rounded-[30px] bg-wine-700 p-6 text-cream-50 shadow-wine sm:p-9 lg:col-span-4">
             <div>
-              <CreditCard weight="duotone" className="h-9 w-9 text-ember-300" />
-              <p className="font-display mt-4 text-2xl font-medium leading-snug">Aceitamos vale-refeição (VR).</p>
+              <p className="font-display text-2xl font-medium leading-snug">Aceitamos vale-refeição (VR).</p>
               <p className="mt-2 text-[15px] leading-relaxed text-cream-100/70">Para outras bandeiras e formas de pagamento, é só perguntar no WhatsApp.</p>
             </div>
             <div className="mt-7">
@@ -88,7 +81,7 @@ function PriceCard({ period, today }: { period: Period; today: number | null }) 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: 0.9, ease: EASE_OUT, delay: night ? 0.1 : 0 }}
-      className={`relative overflow-hidden rounded-[30px] p-5 min-[380px]:p-7 sm:p-9 ${night ? "bg-wine-900 text-cream-50 shadow-lift" : "bg-ember-100 text-wine-900 shadow-soft ring-1 ring-ember-300/50"}`}
+      className={`relative overflow-hidden rounded-[30px] p-5 min-[380px]:p-7 sm:p-9 ${night ? "bg-wine-900 text-cream-50 shadow-lift" : "bg-white text-wine-900 shadow-soft ring-1 ring-wine-600/10"}`}
     >
       {night && <div aria-hidden className="bg-grain pointer-events-none absolute inset-0 opacity-60" />}
       <div className="relative flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
@@ -104,7 +97,7 @@ function PriceCard({ period, today }: { period: Period; today: number | null }) 
           <li
             key={r.label}
             className={`flex items-center justify-between gap-3 rounded-2xl px-4 py-4 transition-colors duration-500 sm:gap-4 sm:px-5 ${
-              r.active ? (night ? "bg-ember-400 text-wine-950" : "bg-wine-600 text-cream-50") : night ? "bg-white/[0.06]" : "bg-white/70"
+              r.active ? (night ? "bg-ember-400 text-wine-950" : "bg-wine-600 text-cream-50") : night ? "bg-white/[0.06]" : "bg-cream-100"
             }`}
           >
             <div className="min-w-0">

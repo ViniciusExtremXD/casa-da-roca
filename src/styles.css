@@ -9,7 +9,7 @@
   }
 
   body {
-    background: #fffaf2;
+    background: #fffdfa;
     color: #24120c;
     overflow-x: clip;
   }
@@ -154,6 +154,77 @@ html.lenis body {
 /* Fazenda de dia e de noite: as cores da paisagem trocam por transição. */
 .scene-fill {
   transition: fill 1.1s ease, stroke 1.1s ease, opacity 1.1s ease;
+}
+
+/* Bichos da fazenda. Animações em SVG: transform-box fill-box para girar e espelhar em torno do próprio desenho. */
+.roam {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: roam var(--dur, 40s) linear infinite;
+}
+@keyframes roam {
+  0% { transform: translateX(0) scaleX(1); }
+  49.9% { transform: translateX(var(--roam, 200px)) scaleX(1); }
+  50% { transform: translateX(var(--roam, 200px)) scaleX(-1); }
+  99.9% { transform: translateX(0) scaleX(-1); }
+  100% { transform: translateX(0) scaleX(1); }
+}
+.leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: leg-swing 0.9s ease-in-out infinite alternate;
+}
+.leg-b { animation-delay: -0.45s; }
+@keyframes leg-swing {
+  from { transform: rotate(9deg); }
+  to { transform: rotate(-9deg); }
+}
+.bob { animation: bob 0.9s ease-in-out infinite alternate; }
+@keyframes bob {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1.5px); }
+}
+.graze {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: graze 8s ease-in-out infinite;
+}
+@keyframes graze {
+  0%, 30% { transform: rotate(0deg); }
+  40%, 82% { transform: rotate(32deg); }
+  92%, 100% { transform: rotate(0deg); }
+}
+.blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 5s infinite;
+}
+@keyframes blink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  93% { transform: scaleY(0.1); }
+}
+.owl-tilt {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: owl-tilt 9s ease-in-out infinite;
+}
+@keyframes owl-tilt {
+  0%, 38% { transform: rotate(0deg); }
+  46%, 66% { transform: rotate(-12deg); }
+  74%, 100% { transform: rotate(0deg); }
+}
+.howl {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: howl 9s ease-in-out infinite;
+}
+@keyframes howl {
+  0%, 55% { transform: rotate(0deg); }
+  64%, 84% { transform: rotate(-24deg); }
+  93%, 100% { transform: rotate(0deg); }
+}
+.anim-paused * {
+  animation-play-state: paused !important;
 }
 
 /* Brasas subindo do forno: pontinhos que sobem e somem. Só transform e opacity. */

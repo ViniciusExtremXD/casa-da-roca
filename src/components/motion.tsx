@@ -205,17 +205,12 @@ export function VelocityMarquee({ children, baseVelocity = -2, className }: { ch
   );
 }
 
-/* Rótulo de seção: "01 — A casa". */
-export function SectionLabel({ index, children, tone = "light" }: { index?: string; children: React.ReactNode; tone?: "dark" | "light" }) {
+/* Rótulo de seção: um traço curto e o nome, sem numeração. `index` fica só por compatibilidade. */
+export function SectionLabel({ children, tone = "light" }: { index?: string; children: React.ReactNode; tone?: "dark" | "light" }) {
   return (
     <Reveal y={12}>
       <div className={`inline-flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.22em] ${tone === "dark" ? "text-cream-200/80" : "text-wine-500"}`}>
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-ember-400" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-ember-400" />
-        </span>
-        {index && <span className="text-ember-500">{index}</span>}
-        {index && <span className={tone === "dark" ? "text-cream-200/30" : "text-wine-300"}>—</span>}
+        <span aria-hidden className={`h-px w-7 ${tone === "dark" ? "bg-ember-400/70" : "bg-ember-500"}`} />
         {children}
       </div>
     </Reveal>

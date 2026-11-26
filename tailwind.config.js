@@ -31,9 +31,9 @@ export default {
         },
         /* Creme de papel e madeira do salão */
         cream: {
-          50: "#FFFAF2",
-          100: "#FDF3E3",
-          200: "#F8E6CC",
+          50: "#FFFDFA",
+          100: "#FAF6F0",
+          200: "#F2E8DA",
           300: "#EED3AE",
         },
         wood: {

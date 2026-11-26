@@ -61,7 +61,7 @@ function PhotoReel() {
     <div ref={root} data-ready={ready} className="reel pause-hover relative flex min-h-[360px] items-center overflow-hidden py-10 sm:min-h-[460px]">
       <div ref={track} className="reel-track items-center gap-6 pr-6">
         {loop.map((p, i) => (
-          <figure key={`${p.src}-${i}`} aria-hidden={i >= HOUSE_PHOTOS.length} className="shrink-0 rounded-[22px] bg-cream-50 p-2 shadow-[0_26px_50px_-24px_rgba(0,0,0,0.7)]" style={{ rotate: `${TILTS[i % TILTS.length]}deg` }}>
+          <figure key={`${p.src}-${i}`} aria-hidden={i >= HOUSE_PHOTOS.length} className="shrink-0 rounded-[22px] bg-white p-2 shadow-[0_22px_44px_-22px_rgba(43,7,7,0.45)] ring-1 ring-wine-600/[0.06]" style={{ rotate: `${TILTS[i % TILTS.length]}deg` }}>
             <img
               src={near ? assetUrl(p.src) : undefined}
               width={p.w}
@@ -82,21 +82,17 @@ function PhotoReel() {
 /* Salão em fotos + o que estão falando (Google e perfis de gastronomia). */
 export function Gallery() {
   return (
-    <section id="quem-ja-veio" className="relative isolate overflow-hidden bg-wine-800 py-24 text-cream-50 sm:py-32">
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="bg-grain absolute inset-0 opacity-60" />
-        <div className="glow absolute -right-48 -top-24 h-[720px] w-[720px] [--glow-a:0.24] [--glow:240_137_15]" />
-      </div>
+    <section id="quem-ja-veio" className="relative isolate overflow-hidden bg-cream-50 py-24 text-wine-900 sm:py-32">
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <SectionLabel index="07" tone="dark">Quem já veio</SectionLabel>
-            <h2 className="font-display mt-6 text-[clamp(2.4rem,5.4vw,4.8rem)] font-medium leading-[1.02] tracking-tight text-balance">
-              <SplitWords text="Casa cheia desde o *primeiro* dia." accentClassName="italic text-ember-400" />
+            <SectionLabel>Quem já veio</SectionLabel>
+            <h2 className="font-display mt-6 text-[clamp(2.4rem,5.4vw,4.8rem)] font-medium leading-[1.02] tracking-tight text-wine-800 text-balance">
+              <SplitWords text="Casa cheia desde o *primeiro* dia." accentClassName="italic text-ember-600" />
             </h2>
           </div>
-          <Reveal className="text-lg leading-relaxed text-cream-100/75 lg:col-span-4">Abrimos em 18 de novembro e a Zona Sul já apareceu em peso. Veja o salão e os vídeos de quem já passou por aqui.</Reveal>
+          <Reveal className="text-lg leading-relaxed text-wine-900/70 lg:col-span-4">Abrimos em 18 de novembro e a Zona Sul já apareceu em peso. Veja o salão e os vídeos de quem já passou por aqui.</Reveal>
         </div>
       </div>
 
@@ -127,7 +123,7 @@ export function Gallery() {
         </Reveal>
 
         {/* Reels de quem visitou */}
-        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-3 lg:col-span-7">
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] content-start border-t border-wine-600/15 lg:col-span-7">
           {REELS.map((r, i) => (
             <Reveal key={r.url} delay={i * 0.06}>
               <a
@@ -135,19 +131,16 @@ export function Gallery() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => pushEvent("instagram_click", { link_location: "reels" })}
-                className="group flex items-center gap-4 rounded-[22px] bg-white/[0.06] p-4 ring-1 ring-white/10 transition-[background-color,transform] duration-500 hover:-translate-y-0.5 hover:bg-white/[0.11] sm:p-5"
+                className="group flex items-center gap-4 border-b border-wine-600/15 py-5 transition-colors duration-300 hover:border-wine-600/40"
               >
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br from-ember-400 to-wine-500 text-cream-50">
-                  <InstagramLogo weight="bold" className="h-6 w-6" />
-                </span>
                 <span className="min-w-0 flex-1">
-                  <span className="font-display block truncate text-xl font-medium leading-tight">{r.title}</span>
-                  <span className="mt-0.5 block truncate text-sm text-cream-100/60">
+                  <span className="font-display block truncate text-xl font-medium leading-tight text-wine-800 sm:text-2xl">{r.title}</span>
+                  <span className="mt-0.5 block truncate text-sm text-wine-900/55">
                     @{r.handle}
                     {r.likes ? ` · ${r.likes}` : ""}
                   </span>
                 </span>
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20 transition-colors duration-500 group-hover:border-ember-400 group-hover:bg-ember-400 group-hover:text-wine-950">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-wine-600/20 text-wine-700 transition-colors duration-500 group-hover:border-wine-600 group-hover:bg-wine-600 group-hover:text-cream-50">
                   <ArrowUpRight weight="bold" className="h-4 w-4" />
                 </span>
               </a>

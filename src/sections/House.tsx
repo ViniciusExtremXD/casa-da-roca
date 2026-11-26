@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
-import { Armchair, CalendarCheck, Car, Grains, Plant } from "@phosphor-icons/react";
-import type { Icon } from "@phosphor-icons/react";
+import { Grains } from "@phosphor-icons/react";
 import { COMPANY, HOUSE_FEATURES, assetUrl } from "../data/site";
 import { ClipReveal, EASE_OUT, ParallaxImage, Reveal, ScrollLitText, SectionLabel, SplitWords, VelocityMarquee } from "../components/motion";
-
-const ICONS: Icon[] = [Armchair, Plant, Car, CalendarCheck];
 
 /* Faixa que corre logo abaixo do topo: o cardápio em uma linha. */
 export function Strip() {
@@ -31,11 +28,10 @@ export function Wheat({ className }: { className?: string }) {
 export function House() {
   return (
     <section id="a-casa" className="relative overflow-hidden bg-cream-50 py-24 sm:py-32">
-      <div aria-hidden className="bg-gingham mask-fade-b pointer-events-none absolute inset-x-0 top-0 h-[520px]" />
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="min-w-0 lg:col-span-6">
-            <SectionLabel index="03">A casa</SectionLabel>
+            <SectionLabel>A casa</SectionLabel>
             <h2 className="font-display mt-6 text-[clamp(2.3rem,5vw,4.4rem)] font-medium leading-[1.03] tracking-tight text-wine-800 text-balance">
               <SplitWords text="A tradição da roça agora tem *endereço* no Socorro." accentClassName="italic text-ember-600" />
             </h2>
@@ -77,19 +73,13 @@ export function House() {
           </div>
         </div>
 
-        <ul className="mt-24 grid gap-4 sm:grid-cols-2 lg:mt-28 lg:grid-cols-4">
-          {HOUSE_FEATURES.map((f, i) => {
-            const Ico = ICONS[i];
-            return (
-              <Reveal as="li" key={f.title} delay={i * 0.07} className="group rounded-[26px] bg-white p-6 shadow-soft ring-1 ring-wine-600/[0.06] transition-[transform,box-shadow] duration-500 hover:-translate-y-1.5 hover:shadow-card">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-ember-100 text-wine-600 transition-[transform,background-color,color] duration-500 group-hover:-rotate-6 group-hover:bg-wine-600 group-hover:text-ember-200">
-                  <Ico weight="duotone" className="h-6 w-6" />
-                </span>
-                <h3 className="font-display mt-5 text-[1.35rem] font-medium leading-tight text-wine-800">{f.title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-wine-900/65">{f.desc}</p>
-              </Reveal>
-            );
-          })}
+        <ul className="mt-24 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:mt-28 lg:grid-cols-4">
+          {HOUSE_FEATURES.map((f, i) => (
+            <Reveal as="li" key={f.title} delay={i * 0.07} className="border-t border-wine-600/20 pt-6">
+              <h3 className="font-display text-[1.45rem] font-medium leading-tight text-wine-800">{f.title}</h3>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-wine-900/65">{f.desc}</p>
+            </Reveal>
+          ))}
         </ul>
 
       </div>

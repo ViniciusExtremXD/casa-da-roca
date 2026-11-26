@@ -8,11 +8,11 @@ import { Hero } from "./sections/Hero";
 import { House, Strip } from "./sections/House";
 import { Buffet } from "./sections/Buffet";
 import { DayNight } from "./sections/DayNight";
-import { Reviews } from "./sections/Reviews";
+import { Visit } from "./sections/Visit";
 import { Prices } from "./sections/Prices";
 import { Gallery } from "./sections/Gallery";
 import { Reservation } from "./sections/Reservation";
-import { Faq, Footer, Location } from "./sections/Location";
+import { Faq, Footer } from "./sections/Location";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -55,8 +55,7 @@ export default function App() {
       <main className="paper">
         <Hero ready={ready} />
         <Strip />
-        <Reviews />
-        <Location />
+        <Visit />
         <House />
         <Buffet />
         <DayNight />
