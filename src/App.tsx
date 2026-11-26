@@ -1,24 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MotionConfig } from "framer-motion";
-import { bindAnchorLinks, initSmoothScroll } from "./lib/smooth-scroll";
 import { pauseOffscreenAnimations } from "./lib/visibility";
 import { pushEvent } from "./data/site";
-import { CookieNotice, FloatingContact, Nav, Preloader, ScrollProgress } from "./components/chrome";
+import { CookieNotice, Header, MobileBar } from "./components/chrome";
 import { Hero } from "./sections/Hero";
-import { House, Strip } from "./sections/House";
-import { Buffet, DayNight } from "./sections/Buffet";
-import { Prices } from "./sections/Prices";
-import { Gallery } from "./sections/Gallery";
-import { Reservation } from "./sections/Reservation";
-import { Faq, Footer, Location } from "./sections/Location";
+import { Reviews } from "./sections/Reviews";
+import { Faq, Footer, Visit } from "./sections/Location";
+import { DayNight } from "./sections/DayNight";
+import { House } from "./sections/House";
 
 export default function App() {
-  const [ready, setReady] = useState(false);
-  const onIntroDone = useCallback(() => setReady(true), []);
-
   useEffect(() => {
-    const stopScroll = initSmoothScroll();
-    const unbind = bindAnchorLinks();
     const stopPause = pauseOffscreenAnimations();
 
     // Quais partes da página o visitante chega a ver (uma vez por seção).
@@ -37,33 +29,24 @@ export default function App() {
     document.querySelectorAll("main section[id]").forEach((el) => io.observe(el));
 
     return () => {
-      stopScroll();
-      unbind();
       stopPause();
       io.disconnect();
     };
   }, []);
 
   return (
-    // Motion é parte da proposta; muitos PCs Windows informam "reduzir movimento" só por terem efeitos desligados.
-    <MotionConfig reducedMotion="never">
-      <Preloader onDone={onIntroDone} />
-      <ScrollProgress />
-      <Nav />
-      <main className="paper">
-        <Hero ready={ready} />
-        <Strip />
-        <House />
-        <Buffet />
+    <MotionConfig reducedMotion="user">
+      <Header />
+      <main>
+        <Hero />
+        <Reviews />
+        <Visit />
         <DayNight />
-        <Prices />
-        <Gallery />
-        <Reservation />
-        <Location />
+        <House />
         <Faq />
       </main>
       <Footer />
-      <FloatingContact />
+      <MobileBar />
       <CookieNotice />
     </MotionConfig>
   );

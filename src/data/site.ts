@@ -1,7 +1,7 @@
 /*
  * Conteúdo do site. Fontes (conferidas em 25/11/2026):
  * - Instagram oficial @restaurante.casadaroca (bio, legendas dos posts e reel de inauguração de 24/11/2026);
- * - Ficha do Google Maps "Restaurante casa da roça" (nota, telefone, endereço);
+ * - Ficha do Google Maps "Restaurante casa da roça" (nota, telefone, endereço e avaliações públicas);
  * - Tabela de valores e horários por período: reel do @achadoszonasulsp (19/11/2026), que bate com o
  *   "R$ 44,90" e os dias da promoção publicados pelo restaurante. A CONFIRMAR com a casa (ver README).
  */
@@ -20,7 +20,7 @@ export const COMPANY = {
   instagramUrl: "https://www.instagram.com/restaurante.casadaroca/",
   instagramFollowers: 31.1,
   googleRating: 4.4,
-  googleReviews: 36,
+  googleReviews: 38,
   googleUrl: "https://www.google.com/maps?cid=10882283889158635785",
   opened: "18/11/2026",
   address: {
@@ -87,12 +87,10 @@ export function trackLead(channel: LeadChannel, location: string, detail?: strin
 /* ───────────────────────── Navegação ───────────────────────── */
 
 export const NAV_LINKS = [
+  { href: "#cardapio", label: "Almoço e jantar" },
+  { href: "#visita", label: "Como chegar" },
   { href: "#a-casa", label: "A casa" },
-  { href: "#buffet", label: "O buffet" },
-  { href: "#pizzas", label: "Rodízio de pizzas" },
-  { href: "#valores", label: "Valores" },
-  { href: "#reservas", label: "Reservas" },
-  { href: "#como-chegar", label: "Como chegar" },
+  { href: "#duvidas", label: "Dúvidas" },
 ];
 
 /* ───────────────────────── Horários e valores ───────────────────────── */
@@ -159,106 +157,173 @@ export function openStatus(date: Date = new Date()): OpenStatus {
   return { open: false, period: "almoco", label: "Abre amanhã às 11h", detail: "para o almoço", price: priceFor(next, "almoco"), dow: next };
 }
 
-/* ───────────────────────── O buffet ───────────────────────── */
+/* ───────────────────────── O que vem na mesa ───────────────────────── */
 
-export interface Station {
+/*
+ * Variedades vistas nos vídeos e fotos da primeira semana (18 a 25/11/2026). O buffet muda todo dia,
+ * por isso o site chama de "amostra". Trocar pela lista oficial quando a casa mandar.
+ */
+export interface Course {
   id: string;
   title: string;
-  when: string;
   desc: string;
+  items: string[];
   image: string;
   alt: string;
   position?: string;
 }
 
-export const STATIONS: Station[] = [
-  {
-    id: "pratos-quentes",
-    title: "Pratos quentes",
-    when: "Almoço e jantar",
-    desc: "Comida caseira servida na panela de barro: gratinados, farofa, arroz bem temperado e assados saindo o tempo todo.",
-    image: "images/buffet-farofa.webp",
-    alt: "Travessas de barro com farofa, arroz temperado e enrolados no buffet da Casa da Roça",
-    position: "50% 70%",
-  },
-  {
-    id: "saladas",
-    title: "Saladas fresquinhas",
-    when: "Almoço e jantar",
-    desc: "Uma ilha inteira de saladas montadas no dia, para abrir o apetite ou equilibrar o prato.",
-    image: "images/saladas.webp",
-    alt: "Ilha de saladas com folhas, legumes e frutas no buffet",
-    position: "50% 60%",
-  },
-  {
-    id: "carnes",
-    title: "Carnes grelhadas",
-    when: "Só no almoço",
-    desc: "Carne passada na chapa e cortada na hora, linguiça e assados. É a estrela do almoço.",
-    image: "images/carne-chapa.webp",
-    alt: "Carne grelhada sendo cortada na chapa",
-    position: "50% 45%",
-  },
-  {
-    id: "sobremesas",
-    title: "Mesa de sobremesas",
-    when: "Já incluída",
-    desc: "Tortas, bolos e docinhos para escolher à vontade. A sobremesa faz parte do buffet, sem pagar a mais.",
-    image: "images/doces-brigadeiro.webp",
-    alt: "Mesa de sobremesas com docinhos, tortas e bolos",
-    position: "50% 35%",
-  },
-];
+const PRATOS_QUENTES: Course = {
+  id: "pratos-quentes",
+  title: "Pratos quentes",
+  desc: "Comida caseira nas travessas de barro, reposta o tempo todo.",
+  items: [
+    "Farofa da casa",
+    "Arroz temperado com legumes",
+    "Feijão",
+    "Enroladinhos de presunto e queijo",
+    "Massas gratinadas",
+    "Batata assada",
+    "Bolinhas de queijo",
+    "Frango assado",
+    "Pão de alho",
+  ],
+  image: "images/buffet-massas.webp",
+  alt: "Travessas de barro com enroladinhos gratinados, bolinhas de queijo e frango no buffet",
+  position: "50% 62%",
+};
 
-export const INCLUDED: Record<Period, { title: string; items: string[]; note: string; image: string; alt: string }> = {
+const SALADAS: Course = {
+  id: "saladas",
+  title: "Saladas",
+  desc: "Uma ilha inteira montada no dia.",
+  items: ["Folhas verdes", "Vagem", "Salada de batata com tomate", "Legumes", "Frutas fatiadas", "Saladas montadas da casa"],
+  image: "images/saladas.webp",
+  alt: "Ilha de saladas com vagem, frutas e salada montada em travessa vermelha",
+  position: "50% 58%",
+};
+
+const SOBREMESAS: Course = {
+  id: "sobremesas",
+  title: "Sobremesas",
+  desc: "Já fazem parte do valor. É só ir se servindo.",
+  items: [
+    "Brigadeiros e trufas",
+    "Bolo de morango com chantili",
+    "Torta de chocolate",
+    "Torta de bolacha",
+    "Mousse de maracujá no copinho de chocolate",
+    "Copinhos de doce",
+  ],
+  image: "images/doces-brigadeiro.webp",
+  alt: "Mesa de sobremesas com trufas, tortas e bolos",
+  position: "50% 45%",
+};
+
+export const MENU: Record<Period, { special: Course; shared: Course[] }> = {
   almoco: {
-    title: "No almoço",
-    items: ["Buffet de pratos quentes", "Saladas fresquinhas", "Carnes grelhadas", "Mesa de sobremesas"],
-    note: "Carnes grelhadas na hora, só no almoço.",
-    image: "images/carnes-linguica.webp",
-    alt: "Travessas com linguiça e carnes assadas no buffet do almoço",
+    special: {
+      id: "carnes",
+      title: "Carnes grelhadas",
+      desc: "Só no almoço: carne passada na chapa e cortada na hora.",
+      items: ["Carne na chapa, cortada na hora", "Carne assada", "Linguiça", "Frango"],
+      image: "images/carne-chapa.webp",
+      alt: "Carne grelhada sendo cortada na chapa",
+      position: "50% 45%",
+    },
+    shared: [PRATOS_QUENTES, SALADAS, SOBREMESAS],
   },
   jantar: {
-    title: "No jantar",
-    items: ["Buffet de pratos quentes", "Saladas fresquinhas", "Rodízio de pizzas salgadas e doces", "Mesa de sobremesas"],
-    note: "No jantar entra o rodízio de pizzas no lugar das carnes grelhadas.",
-    image: "images/pizza-marguerita.webp",
-    alt: "Fatia de pizza marguerita sendo servida, com o queijo puxando",
+    special: {
+      id: "pizzas",
+      title: "Rodízio de pizzas",
+      desc: "Só no jantar: pizzas salgadas e doces passando na mesa.",
+      items: ["Marguerita", "Outras salgadas da casa", "Pizza de chocolate branco", "Pizza de M&M's"],
+      image: "images/forno-pizza.webp",
+      alt: "Pizzaiolo servindo uma pizza em frente ao forno",
+      position: "50% 40%",
+    },
+    shared: [PRATOS_QUENTES, SALADAS, SOBREMESAS],
   },
 };
 
 /* ───────────────────────── A casa ───────────────────────── */
 
-export const HOUSE_FEATURES = [
-  { title: "Salão amplo e climatizado", desc: "Espaço de sobra para a família inteira, do almoço de domingo ao jantar no meio da semana." },
-  { title: "Decoração de roça", desc: "Madeira, barris, rodas de carroça e flores: a casa foi montada para lembrar o interior." },
-  { title: "Estacionamento grátis", desc: "Pátio próprio na frente do restaurante, na Avenida Guarapiranga." },
-  { title: "Aberto todos os dias", desc: "Almoço e jantar de segunda a segunda, das 11h às 23h." },
-];
-
 export const HOUSE_PHOTOS = [
-  { src: "images/salao-b.webp", w: 719, h: 900, alt: "Ilha do buffet no salão, com vigas de madeira e flores" },
-  { src: "images/letreiro.webp", w: 717, h: 900, alt: "Letreiro iluminado Casa da Roça Restaurante e Pizzaria sobre parede de madeira" },
-  { src: "images/salao-cheio-b.webp", w: 718, h: 1258, alt: "Salão da Casa da Roça cheio de famílias almoçando" },
-  { src: "images/fachada.webp", w: 719, h: 930, alt: "Fachada da Casa da Roça com estacionamento na frente" },
-  { src: "images/salao-a.webp", w: 719, h: 900, alt: "Vista do salão com o buffet ao fundo" },
-  { src: "images/forno-pizza.webp", w: 717, h: 890, alt: "Forno de pizza e balcão de carnes da Casa da Roça" },
-  { src: "images/doces-bolos.webp", w: 719, h: 890, alt: "Bolos e doces da mesa de sobremesas" },
-  { src: "images/buffet-massas.webp", w: 719, h: 1278, alt: "Travessas de massas gratinadas e salgados no buffet" },
+  { src: "images/letreiro.webp", w: 717, h: 900, alt: "Letreiro iluminado Casa da Roça Restaurante e Pizzaria sobre parede de madeira", caption: "O letreiro na parede de tábuas, com o varal de luzes." },
+  { src: "images/salao-a.webp", w: 719, h: 900, alt: "Salão vazio com vigas de madeira, flores e o buffet ao fundo", caption: "O salão antes de abrir as portas: vigas de madeira e ladrilho hidráulico." },
+  { src: "images/salao-cheio-a.webp", w: 717, h: 930, alt: "Salão da Casa da Roça cheio de famílias", caption: "Casa cheia na semana de inauguração." },
+  { src: "images/fachada.webp", w: 719, h: 930, alt: "Fachada da Casa da Roça com estacionamento na frente", caption: "A fachada na Av. Guarapiranga, com o pátio de estacionamento." },
 ];
-
-/* ───────────────────────── Quem já veio ───────────────────────── */
 
 /* Vídeos publicados por perfis de gastronomia de São Paulo. Curtidas lidas em 25/11/2026. */
 export const REELS = [
-  { handle: "achadoszonasulsp", likes: "12 mil curtidas", title: "Novo restaurante na Zona Sul de SP", url: "https://www.instagram.com/reel/Df6_YLFgRnk/" },
-  { handle: "dedeporsp", likes: "2,9 mil curtidas", title: "R$ 44,90 pra comer à vontade", url: "https://www.instagram.com/reel/DgFcLxwBev4/" },
-  { handle: "penoasfaltosp", likes: "1,4 mil curtidas", title: "Comida de roça e muita fartura", url: "https://www.instagram.com/reel/DgFaRxygOyl/" },
-  { handle: "bendito.review", likes: "", title: "Almoçando no buffet à vontade", url: "https://www.instagram.com/reel/Df8K_WLOb7p/" },
+  { handle: "achadoszonasulsp", likes: "12 mil curtidas", url: "https://www.instagram.com/reel/Df6_YLFgRnk/" },
+  { handle: "dedeporsp", likes: "2,9 mil curtidas", url: "https://www.instagram.com/reel/DgFcLxwBev4/" },
+  { handle: "penoasfaltosp", likes: "1,4 mil curtidas", url: "https://www.instagram.com/reel/DgFaRxygOyl/" },
+  { handle: "bendito.review", likes: "", url: "https://www.instagram.com/reel/Df8K_WLOb7p/" },
 ];
 
-/* Temas mais citados nas avaliações do Google (a própria ficha agrupa assim). */
-export const PRAISED = ["Sobremesas", "Variedade do buffet", "Atendimento", "Ambiente para a família"];
+/* ───────────────────────── Avaliações do Google ───────────────────────── */
+
+/*
+ * Trechos de avaliações públicas da ficha do Google (lidas em 25/11/2026), com o nome abreviado.
+ * Texto como foi escrito, só cortado com "[…]". Antes do go-live, trocar por um widget oficial
+ * ou pedir autorização (ver README).
+ */
+export interface Review {
+  name: string;
+  guide?: boolean;
+  text: string;
+  when: string;
+}
+
+export const REVIEWS: Review[] = [
+  {
+    name: "Caroline C.",
+    text: "Amei o sabor da comida, a variedade de coisas do buffet, muita comida, muita salada e no buffet está incluso a sobremesa. Fomos bem atendidos, o ambiente é lindo, espaçoso, aconchegante e bem clean.",
+    when: "Jantar de domingo, 22/11",
+  },
+  {
+    name: "Marcos D.",
+    guide: true,
+    text: "Muitas variedades, para todos os gostos, comidas saborosas, ambiente gostoso, queria comer mais, experimentar mais coisas mas a barriga já estava cheia terei que voltar kkk parabéns",
+    when: "Novembro de 2026",
+  },
+  {
+    name: "Nicolle S.",
+    text: "Experiência excelente! A comida estava muito boa, o espaço é agradável, aconchegante e muito bem organizado. O atendimento também foi impecável, com muita atenção e cordialidade.",
+    when: "Novembro de 2026",
+  },
+  {
+    name: "Antonio D.",
+    guide: true,
+    text: "Diversas opções de saladas e uma mesa farta com bastante sobremesas. […] Sem contar no rodízio de pizza que também estava um delícia com muitas opções entre pizzas doces e salgadas. Super recomendo pelo excelente custo benefício nota 1000.",
+    when: "Jantar de inauguração, 18/11",
+  },
+  {
+    name: "Marcia O.",
+    guide: true,
+    text: "Atendimento incrível, ambiente agradável, comida maravilhosa. Perfeito para reunir família, amigos.",
+    when: "Novembro de 2026",
+  },
+  {
+    name: "LuckS",
+    text: "Pela quantidade de comidas diferentes que servem e por ser self-service coma a vontade achei bem barato. A mesa de sobremesas era bem farta.",
+    when: "Novembro de 2026",
+  },
+  {
+    name: "Gabriella C.",
+    text: "Atendimento perfeito, atendentes muitos simpáticos e atenciosos, comidas maravilhosas e sempre servindo até que esteja satisfeito. Excelente restaurante.",
+    when: "Novembro de 2026",
+  },
+  {
+    name: "Gabriela O.",
+    guide: true,
+    text: "Fomos em família, na noite de sábado, funcionários educados, variedade de comidas.",
+    when: "Novembro de 2026",
+  },
+];
 
 /* ───────────────────────── Dúvidas ───────────────────────── */
 

@@ -1,20 +1,7 @@
 /*
- * Animações infinitas só rodam enquanto estão perto da tela.
- * Fora dela, recebem a classe `anim-paused` (animation-play-state: paused), o que tira
- * o custo de estilo e pintura de dezenas de elementos decorativos que ninguém está vendo.
+ * Animações infinitas (estrelas, luz da janela) só rodam com a cena perto da tela.
+ * Fora dela, a cena recebe `anim-paused` e todos os filhos param (ver styles.css).
  */
-const SELECTOR = [
-  ".animate-sway",
-  ".animate-pulse-ring",
-  ".animate-marquee",
-  ".animate-marquee-rev",
-  ".animate-float",
-  ".animate-flutter",
-  ".animate-spin-slow",
-  ".animate-rise",
-  ".reel-track",
-].join(",");
-
 export function pauseOffscreenAnimations() {
   if (typeof IntersectionObserver === "undefined") return () => {};
 
@@ -24,7 +11,7 @@ export function pauseOffscreenAnimations() {
     },
     { rootMargin: "160px 0px" },
   );
-  document.querySelectorAll(SELECTOR).forEach((el) => io.observe(el));
+  document.querySelectorAll("[data-scene]").forEach((el) => io.observe(el));
 
   return () => io.disconnect();
 }
