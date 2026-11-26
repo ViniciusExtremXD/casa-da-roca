@@ -13,7 +13,7 @@ export function render() {
   );
 }
 
-/* Domínio definitivo vem de VITE_SITE_URL (.env); no go-live, conferir também robots.txt e sitemap.xml. */
+/* Trocar pelo domínio definitivo no go-live (também em robots.txt e sitemap.xml). */
 const SITE = import.meta.env.VITE_SITE_URL || "https://casadarocarestaurante.com.br/";
 const DAY = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const hh = (h: number) => `${String(h).padStart(2, "0")}:00`;

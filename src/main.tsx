@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// Gloock (títulos) e Schibsted Grotesk (texto), servidas junto com o site.
-import "@fontsource/gloock/latin-400.css";
-import "@fontsource/gloock/latin-ext-400.css";
-import "@fontsource-variable/schibsted-grotesk/wght.css";
+// Eixos peso + SOFT (serifas arredondadas dos posts). Metade do tamanho do arquivo "full".
+import "@fontsource-variable/fraunces/soft.css";
+import "@fontsource-variable/fraunces/soft-italic.css";
+import "@fontsource-variable/plus-jakarta-sans";
 import "./styles.css";
 import App from "./App";
 import { captureAttribution } from "./lib/attribution";
