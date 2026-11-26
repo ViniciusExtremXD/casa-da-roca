@@ -8,7 +8,7 @@
     "dev": "vite --port 5181",
     "build": "tsc --noEmit && vite build && vite build --ssr src/entry-server.tsx --outDir dist-server && node scripts/prerender.mjs",
     "preview": "vite preview --port 5181",
-    "build:gh": "cross-env VITE_BASE=/casa-da-roca/ npm run build",
+    "build:gh": "cross-env VITE_BASE=/casa-da-roca/ VITE_SITE_URL=https://viniciusextremxd.github.io/casa-da-roca/ npm run build",
     "deploy:gh": "npm run build:gh && gh-pages -d dist --nojekyll -m Deploy"
   },
   "dependencies": {
